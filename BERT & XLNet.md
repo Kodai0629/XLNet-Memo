@@ -16,11 +16,11 @@
   * Masked Language Model (以下MLM)
   * Next Sentence Prediction (以下NSP)
 
-##### **MLM**
+## MLM
 * 文中のいくつかの単語を[MASK]というトークンに置き換える
-* 80%を[MASK]に置き換える`My dog is hairy -> My dog is [MASK]`
-* 10%をランダムの単語に置き換える`My dog is apple`
-* 10%はそのまま`My dog is hairy` 
+  * 80%を[MASK]に置き換える`My dog is hairy -> My dog is [MASK]`
+  * 10%をランダムの単語に置き換える`My dog is apple`
+  * 10%はそのまま`My dog is hairy` 
 * [MASK]に当てはまる単語を予測する
 
 
@@ -64,3 +64,35 @@ ans = tokenizer.convert_ids_to_tokens(b[1])
 ans
 ```
 
+## NSP
+* 2つの文が意味的に続いているかを判定する
+* 正しい時はIsNext、そうでない時はNotNextと判定する
+```
+入力：[CLS] the man went to [MASK] store [SEP] ／he bought a gallon [MASK] milk [SEP]
+判定：IsNext
+入力：[CLS] the man went to [MASK] store [SEP]／penguin [MASK] are flight #less birds [SEP]
+判定：NotNext
+```
+## fine-tuning
+*
+
+
+# XLNet
+## XLNetとは
+
+* Carnegie Mellon大学とGoogle Brainの研究チームによって2019年に発表されたBERTの問題点を改善したモデル
+
+## BERTの問題点
+* MLMの[MASK]はfine-tuningやテスト時には存在しない
+* 複数の[MASK]があった場合、[MASK]の間にある依存関係を学習できない
+> `I like [MASK], and I play [MASK] [MASK] every day.`
+> 
+> (sports, table, tennis)や(music, the, guitar)など複数の可能性がある
+
+## XLNetでの改善
+* MLMではなく、並べ替え言語モデル (permutation language modeling) を学習させる
+
+> `“play”, “table”, “every”, “sports”, “,” -> “tennis”`や
+>
+> `“sports”, “I”, “day”, “I”, “and”, “every”, “.”, “play”, “tennis” -> “like”`
+![XLNet](https://ai-scholar.tech/wp-content/uploads/2019/08/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-08-11-13.52.39-768x588.png) 
