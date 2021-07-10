@@ -73,9 +73,61 @@ ans
 入力：[CLS] the man went to [MASK] store [SEP]／penguin [MASK] are flight #less birds [SEP]
 判定：NotNext
 ```
-## fine-tuning
-*
+以下サンプル
+```
+import torch
+import torch.nn as nn
+from transformers import BertJapaneseTokenizer, BertForNextSentencePrediction
+```
 
+```
+model = BertForNextSentencePrediction.from_pretrained('cl-tohoku/bert-base-japanese')
+
+text1='巴は誰ですか？' #前文
+text2='巴は美しい女性です。' #後文
+
+text1_toks = ["[CLS]"] + tokenizer.tokenize(text1)+ ["[SEP]"]
+text2_toks = tokenizer.tokenize(text2)+ ["[SEP]"]
+text = text1_toks + text2_toks
+segments_ids = [0] * len(text1_toks)+ [1] * len(text2_toks)
+print(text)
+indexed_tokens = tokenizer.convert_tokens_to_ids(text)
+print(indexed_tokens)
+tokens_tensor = torch.tensor([indexed_tokens])
+segments_tensors = torch.tensor([segments_ids])
+```
+
+```
+model.eval()
+
+prediction = model(tokens_tensor, token_type_ids =segments_tensors)
+prediction=prediction[0] # tuple to tensor
+#print(predictions)
+softmax = nn.Softmax(dim=1)
+prediction_sm = softmax(prediction)  
+print(prediction_sm)
+print(prediction_sm[0][1].item())
+```
+textの文章を変更する
+
+## fine-tuning
+* 入力に近い層を残し出力に近い層を入れ替えて再度学習を行う
+* 公開されている学習済みモデルを用いることができる
+  * 汎用性が高い
+* 少ないデータセットでも学習が可能
+
+## 公開されている学習済みモデル
+* [京都大学](https://nlp.ist.i.kyoto-u.ac.jp/?ku_bert_japanese)
+* [東北大学](https://github.com/cl-tohoku/bert-japanese)
+* [Stockmarks](https://drive.google.com/drive/folders/1iDlmhGgJ54rkVBtZvgMlgbuNwtFQ50V-)
+* [NICT](https://alaginrc.nict.go.jp/nict-bert/index.html)
+* [Loboro](https://github.com/laboroai/Laboro-BERT-Japanese)
+
+## Transformer
+##### transformerの概要
+![transformer model](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.ap-northeast-1.amazonaws.com%2F0%2F331449%2F2acaeae0-5eef-ef26-2335-4a6a148e7414.png?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=0cb79b920c64178dd98c78d032c2ff6f)
+
+***解説はこちら*** https://data-analytics.fun/2020/04/01/understanding-transformer/
 
 # XLNet
 ## XLNetとは
@@ -96,3 +148,11 @@ ans
 >
 > `“sports”, “I”, “day”, “I”, “and”, “every”, “.”, “play”, “tennis” -> “like”`
 ![XLNet](https://ai-scholar.tech/wp-content/uploads/2019/08/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2019-08-11-13.52.39-768x588.png) 
+
+## Transformer-XL
+* Transformerと比べて長い文章の依存関係を捉えられる
+
+***解説はこちら*** https://data-analytics.fun/2020/04/11/understanding-transformer-xl/
+## XLNetの成果
+* RACEの20のタスク全てでBERT超え、うち18のタスクで最高精度を達成した
+  * 中国の中学生~高校生向けの英語の読解テストから作られたデータセット
