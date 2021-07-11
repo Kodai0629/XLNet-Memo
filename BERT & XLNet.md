@@ -116,6 +116,8 @@ textの文章を変更する
   * 汎用性が高い
 * 少ないデータセットでも学習が可能
 
+***サンプルはこちら*** https://qiita.com/sugulu_Ogawa_ISID/items/697bd03499c1de9cf082
+
 ## 公開されている学習済みモデル
 * [京都大学](https://nlp.ist.i.kyoto-u.ac.jp/?ku_bert_japanese)
 * [東北大学](https://github.com/cl-tohoku/bert-japanese)
