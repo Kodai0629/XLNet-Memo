@@ -6,9 +6,16 @@
   * 汎用的な言語モデルを実現できる
   * データが少なくても学習できる
   * 双方向性を持つ
+![画像](https://data-analytics.fun/wp-content/uploads/2020/04/bert3-1024x415.png)
 
 ## モデルの概要
 ![モデル画像](https://qiita-user-contents.imgix.net/https%3A%2F%2Fimgur.com%2F1ol4NHO.png?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=e51ac8d5c804ad835a5d5c50a13eb5dc)
+
+## Transformer
+##### transformerの概要
+![transformer model](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.ap-northeast-1.amazonaws.com%2F0%2F331449%2F2acaeae0-5eef-ef26-2335-4a6a148e7414.png?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=0cb79b920c64178dd98c78d032c2ff6f)
+
+***解説はこちら*** https://data-analytics.fun/2020/04/01/understanding-transformer/
 
 ## 事前学習(pre-training)とfine-tuning
 ##### 事前学習(pre-training)
@@ -125,11 +132,6 @@ textの文章を変更する
 * [NICT](https://alaginrc.nict.go.jp/nict-bert/index.html)
 * [Loboro](https://github.com/laboroai/Laboro-BERT-Japanese)
 
-## Transformer
-##### transformerの概要
-![transformer model](https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.ap-northeast-1.amazonaws.com%2F0%2F331449%2F2acaeae0-5eef-ef26-2335-4a6a148e7414.png?ixlib=rb-4.0.0&auto=format&gif-q=60&q=75&w=1400&fit=max&s=0cb79b920c64178dd98c78d032c2ff6f)
-
-***解説はこちら*** https://data-analytics.fun/2020/04/01/understanding-transformer/
 
 # XLNet
 ## XLNetとは
@@ -158,3 +160,26 @@ textの文章を変更する
 ## XLNetの成果
 * RACEの20のタスク全てでBERT超え、うち18のタスクで最高精度を達成した
   * 中国の中学生~高校生向けの英語の読解テストから作られたデータセット
+
+## 公開されている学習済みモデル
+* [Stockmarks](https://drive.google.com/drive/folders/1eyuk1Mtf3nvIIx6lXBPEoymReQ34A0tE)
+
+
+# 参考資料
+* 論文
+  * 「BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding」(https://arxiv.org/abs/1810.04805)
+  * 「Attention Is All You Need」(https://arxiv.org/abs/1706.03762)
+  * 「XLNet: Generalized Autoregressive Pretraining for Language Understanding」(https://arxiv.org/abs/1906.08237)
+  * 「Transformer-XL: Attentive Language Models Beyond a Fixed-Length Context」(https://arxiv.org/abs/1901.02860)
+
+* 資料
+  * [【論文解説】Transformerを理解する](https://data-analytics.fun/2020/04/01/understanding-transformer/)
+  * [【実装解説】日本語版BERTでlivedoorニュース分類：Google Colaboratoryで（PyTorch）](https://qiita.com/sugulu_Ogawa_ISID/items/697bd03499c1de9cf082)
+  * [Transformer-XLを理解する](https://data-analytics.fun/2020/04/11/understanding-transformer-xl/)
+  * [BERTを超えた自然言語処理の最新モデル「XLNet」](https://ai-scholar.tech/articles/treatise/xlnet-ai-228)
+  * [XLNetを理解する](https://data-analytics.fun/2020/05/06/understanding-xlnet/#toc15)
+  * [BERTを超えた？　XLNet を実際に使ってみた](https://qiita.com/masaharu_/items/0f794b2d24c3f0789054)
+
+* 本
+  * 『BERT・XLNetに学ぶ、言語処理における事前学習』
+  * 『PyTorch自然言語処理プログラミング』
